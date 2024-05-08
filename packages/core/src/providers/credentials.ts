@@ -51,9 +51,7 @@ export interface CredentialsConfig<
    * @example
    * ```ts
    * async authorize(credentials, request) { // you have access to the original request as well
-   *   if(!isValidCredentials(credentials)) {
-   *      throw new CustomError()
-   *   }
+   *   if(!isValidCredentials(credentials)) return null
    *   return await getUser(credentials) // assuming it returns a User or null
    * }
    * ```
@@ -115,8 +113,8 @@ export type CredentialsProviderType = "Credentials"
  *
  * @example
  * ```js
- * import Auth from "@auth/core"
- * import Credentials from "@auth/core/providers/credentials"
+ * import Auth from "rkang-auth-core"
+ * import Credentials from "rkang-auth-core/providers/credentials"
  *
  * const request = new Request("https://example.com")
  * const response = await AuthHandler(request, {
@@ -137,7 +135,8 @@ export type CredentialsProviderType = "Credentials"
  *   trustHost: true,
  * })
  * ```
- * @see [Username/Password Example](https://authjs.dev/getting-started/authentication/credentials)
+ * @see [Username/Password Example](https://authjs.dev/guides/providers/credentials#example---username--password)
+ * @see [Web3/Signin With Ethereum Example](https://authjs.dev/guides/providers/credentials#example---web3--signin-with-ethereum)
  */
 export default function Credentials<
   CredentialsInputs extends Record<string, CredentialInput> = Record<

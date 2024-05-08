@@ -16,17 +16,8 @@
  * @module @auth/solid-start
  */
 
-import { Auth, type AuthConfig } from "@auth/core"
-import type { AuthAction, Session } from "@auth/core/types"
-
-export { AuthError, CredentialsSignin } from "@auth/core/errors"
-export type {
-  Account,
-  DefaultSession,
-  Profile,
-  Session,
-  User,
-} from "@auth/core/types"
+import { Auth } from "@auth/core"
+import type { AuthAction, AuthConfig, Session } from "@auth/core/types"
 
 export interface SolidAuthConfig extends AuthConfig {
   /**

@@ -1,12 +1,6 @@
 import { runBasicTests } from "utils/adapter"
 import { DrizzleAdapter } from "../../src"
-import {
-  db,
-  sqliteAccountsTable as accounts,
-  sqliteSessionsTable as sessions,
-  sqliteUsersTable as users,
-  sqliteVerificationTokensTable as verificationTokens,
-} from "./schema"
+import { db, accounts, sessions, users, verificationTokens } from "./schema"
 import { eq, and } from "drizzle-orm"
 
 runBasicTests({

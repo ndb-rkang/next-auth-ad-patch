@@ -27,8 +27,8 @@ import WebAuthn, {
  *
  * #### Configuration
  * ```ts
- * import { Auth } from "@auth/core"
- * import Passkey from "@auth/core/providers/passkey"
+ * import { Auth } from "rkang-auth-core"
+ * import Passkey from "rkang-auth-core/providers/passkey"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -52,7 +52,7 @@ import WebAuthn, {
  * :::tip
  *
  * The Passkey provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/passkey.ts).
- * To override the defaults for your use case, check out [customizing a built-in WebAuthn provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in WebAuthn provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *

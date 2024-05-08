@@ -3,10 +3,3 @@ collection VerificationToken {
         terms [.identifier, .token]
     }
 }
-
-collection CustomVerificationToken {
-    index byIdentifierAndToken {
-        terms [.identifier, .token]
-    }
-}
-

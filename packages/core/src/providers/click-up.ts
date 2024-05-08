@@ -33,8 +33,8 @@ export interface ClickUpProfile {
  *
  * #### Configuration
  * ```ts
- * import { Auth } from "@auth/core"
- * import ClickUp from "@auth/core/providers/click-up"
+ * import { Auth } from "rkang-auth-core"
+ * import ClickUp from "rkang-auth-core/providers/click-up"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -55,7 +55,7 @@ export interface ClickUpProfile {
  * :::tip
  *
  * The ClickUp provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/click-up.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -91,6 +91,7 @@ export default function ClickUp(
       }
     },
     style: {
+      logo: "/click-up.svg",
       bg: "#24292f",
       text: "#fff",
     },

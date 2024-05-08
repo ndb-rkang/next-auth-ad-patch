@@ -3,7 +3,6 @@ import * as jose from "jose"
 import * as o from "oauth4webapi"
 
 import GitHub from "../../src/providers/github.js"
-import Credentials from "../../src/providers/credentials.js"
 
 import { makeAuthRequest } from "../utils.js"
 
@@ -66,22 +65,4 @@ describe("assert GET callback action", () => {
       `https://login.example.com?state=${encodedState}`
     )
   })
-})
-
-it("should redirect to the custom error page is custom error page is defined", async () => {
-  const { response } = await makeAuthRequest({
-    action: "callback",
-    path: "/credentials",
-    config: {
-      pages: {
-        error: "/custom/error",
-      },
-      providers: [Credentials],
-    },
-  })
-
-  expect(response.status).toEqual(302)
-  expect(response.headers.get("location")).toEqual(
-    `https://authjs.test/custom/error?error=Configuration`
-  )
 })

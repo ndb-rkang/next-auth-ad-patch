@@ -43,8 +43,8 @@ export interface FusionAuthProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import FusionAuth from "@auth/core/providers/fusionauth"
+ * import Auth from "rkang-auth-core"
+ * import FusionAuth from "rkang-auth-core/providers/fusionauth"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -84,7 +84,7 @@ export interface FusionAuthProfile extends Record<string, any> {
  * :::tip
  *
  * The FusionAuth provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/fusionauth.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *

@@ -52,7 +52,7 @@ export const defaultCollections: Required<
 }
 
 export const format = {
-  /** Takes a MongoDB object and returns a plain old JavaScript object */
+  /** Takes a mongoDB object and returns a plain old JavaScript object */
   from<T = Record<string, unknown>>(object: Record<string, any>): T {
     const newObject: Record<string, unknown> = {}
     for (const key in object) {
@@ -67,7 +67,7 @@ export const format = {
     }
     return newObject as T
   },
-  /** Takes a plain old JavaScript object and turns it into a MongoDB object */
+  /** Takes a plain old JavaScript object and turns it into a mongoDB object */
   to<T = Record<string, unknown>>(object: Record<string, any>) {
     const newObject: Record<string, unknown> = {
       _id: _id(object.id),
@@ -139,6 +139,7 @@ export function _id(hex?: string) {
  * // https://authjs.dev/reference/providers/oauth
  * export default NextAuth({
  *   adapter: MongoDBAdapter(clientPromise),
+ *   ...
  * })
  * ```
  **/

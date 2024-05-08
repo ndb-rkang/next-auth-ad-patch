@@ -1,9 +1,10 @@
-import { Auth, createActionURL, type AuthConfig } from "@auth/core"
+import { Auth, type AuthConfig } from "rkang-auth-core"
 import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 import { reqWithEnvURL } from "./env.js"
+import { createActionURL } from "./actions.js"
 
-import type { AuthAction, Awaitable, Session } from "@auth/core/types"
+import type { AuthAction, Awaitable, Session } from "rkang-auth-core/types"
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
@@ -26,6 +27,7 @@ export interface NextAuthConfig extends Omit<AuthConfig, "raw"> {
      *
      * @example
      * ```ts title="app/auth.ts"
+     * ...
      * async authorized({ request, auth }) {
      *   const url = request.nextUrl
      *
@@ -40,6 +42,7 @@ export interface NextAuthConfig extends Omit<AuthConfig, "raw"> {
      *   // Logged in users are authenticated, otherwise redirect to login page
      *   return !!auth.user
      * }
+     * ...
      * ```
      *
      * :::warning
@@ -57,14 +60,7 @@ export interface NextAuthConfig extends Omit<AuthConfig, "raw"> {
 }
 
 async function getSession(headers: Headers, config: NextAuthConfig) {
-  const url = createActionURL(
-    "session",
-    // @ts-expect-error `x-forwarded-proto` is not nullable, next.js sets it by default
-    headers.get("x-forwarded-proto"),
-    headers,
-    process.env,
-    config.basePath
-  )
+  const url = createActionURL("session", headers, config.basePath)
   const request = new Request(url, {
     headers: { cookie: headers.get("cookie") ?? "" },
   })
@@ -74,9 +70,9 @@ async function getSession(headers: Headers, config: NextAuthConfig) {
     callbacks: {
       ...config.callbacks,
       // Since we are server-side, we don't need to filter out the session data
-      // See https://authjs.dev/getting-started/migrating-to-v5#authenticating-server-side
+      // See https://authjs.dev/guides/upgrade-to-v5/v5#authenticating-server-side
       // TODO: Taint the session data to prevent accidental leakage to the client
-      // https://react.dev/reference/react/experimental_taintObjectReference
+      // https://react.devreference/nextjs/react/experimental_taintObjectReference
       async session(...args) {
         const session =
           // If the user defined a custom session callback, use that instead

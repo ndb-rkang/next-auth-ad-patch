@@ -29,8 +29,8 @@ export interface BeyondIdentityProfile {
  * @example
  *
  * ```ts
- * import { Auth } from "@auth/core"
- * import BeyondIdentity from "@auth/core/providers/beyondidentity"
+ * import { Auth } from "rkang-auth-core"
+ * import BeyondIdentity from "rkang-auth-core/providers/beyondidentity"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -54,7 +54,7 @@ export interface BeyondIdentityProfile {
  * :::tip
  *
  * The BeyondIdentity provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/beyondidentity.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -86,6 +86,7 @@ export default function BeyondIdentity(
       }
     },
     style: {
+      logo: "/beyondidentity.svg",
       bg: "#5077c5",
       text: "#fff",
     },

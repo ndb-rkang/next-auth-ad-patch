@@ -87,4 +87,11 @@ prLabeler = prLabeler.replace(/frameworkId/g, id)
 
 await fs.writeFile(prLabelerPath, prLabeler)
 
+const generateManifestPath = path.join(
+  __dirname,
+  "../../..",
+  "scripts",
+  "generate-manifest.mjs"
+)
+
 console.log("✅ Success. Please run `pnpm i` to install dependencies.")

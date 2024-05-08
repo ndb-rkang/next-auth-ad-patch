@@ -2,9 +2,7 @@ import { migrate } from "drizzle-orm/postgres-js/migrator"
 import { db } from "./schema"
 
 const migrator = async () => {
-  await migrate(db, {
-    migrationsFolder: "./test/pg-multi-project-schema/.drizzle",
-  })
+  await migrate(db, { migrationsFolder: "./test/pg/.drizzle" })
 }
 
 migrator()

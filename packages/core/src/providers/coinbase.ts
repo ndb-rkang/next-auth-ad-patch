@@ -22,8 +22,8 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Coinbase from "@auth/core/providers/coinbase"
+ * import Auth from "rkang-auth-core"
+ * import Coinbase from "rkang-auth-core/providers/coinbase"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -47,7 +47,7 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * :::tip
  *
  * The Coinbase provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/coinbase.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -79,9 +79,6 @@ export default function Coinbase(
         email: profile.data.email,
         image: profile.data.avatar_url,
       }
-    },
-    style: {
-      brandColor: "#0052ff",
     },
     options,
   }

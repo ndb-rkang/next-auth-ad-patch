@@ -37,7 +37,7 @@ import type {
  *
  * const prisma = new PrismaClient()
  *
- * export const { handlers, auth, signIn, signOut } = NextAuth({
+ * export { handlers, auth, signIn, signOut } = NextAuth({
  *   adapter: PrismaAdapter(prisma),
  *   providers: [
  *     Google,
@@ -199,14 +199,13 @@ import type {
  * }
  *
  * model User {
- *   id             String    @id @default(cuid())
- *   name           String?
- *   email          String?   @unique
- *   emailVerified  DateTime? @map("email_verified")
- *   image          String?
- *   accounts       Account[]
- *   sessions       Session[]
- *   authenticators Authenticator[]
+ *   id            String    @id @default(cuid())
+ *   name          String?
+ *   email         String?   @unique
+ *   emailVerified DateTime? @map("email_verified")
+ *   image         String?
+ *   accounts      Account[]
+ *   sessions      Session[]
  *
  *   @@map("users")
  * }

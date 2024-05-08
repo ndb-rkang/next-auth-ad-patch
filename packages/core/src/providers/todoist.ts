@@ -32,8 +32,8 @@ interface TodoistProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Todoist from "@auth/core/providers/todoist"
+ * import Auth from "rkang-auth-core"
+ * import Todoist from "rkang-auth-core/providers/todoist"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -54,7 +54,7 @@ interface TodoistProfile extends Record<string, any> {
  * :::tip
  *
  * The Todoist provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/todoist.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -111,7 +111,7 @@ export default function TodoistProvider<P extends TodoistProfile>(
         image: profile.avatar_big,
       }
     },
-    style: { text: "#000", bg: "#E44332" },
+    style: { logo: "/todoist.svg", text: "#000", bg: "#E44332" },
     options,
   }
 }

@@ -78,8 +78,8 @@ export interface MattermostProfile {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Mattermost from "@auth/core/providers/mattermost"
+ * import Auth from "rkang-auth-core"
+ * import Mattermost from "rkang-auth-core/providers/mattermost"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -107,7 +107,7 @@ export interface MattermostProfile {
  * :::tip
  *
  * The Mattermost provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/mattermost.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -142,7 +142,7 @@ export default function Mattermost<P extends MattermostProfile>(
         image: null,
       }
     },
-    style: { bg: "#000", text: "#fff" },
+    style: { logo: "/mattermost.svg", bg: "#000", text: "#fff" },
     options: rest,
   }
 }

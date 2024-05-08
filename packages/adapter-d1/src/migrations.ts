@@ -49,6 +49,7 @@ export const down = [
 ]
 
 /**
+ *
  * @param db
  */
 async function up(db: D1Database) {

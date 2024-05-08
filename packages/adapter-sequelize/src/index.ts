@@ -69,7 +69,7 @@ export interface SequelizeAdapterOptions {
  *
  *  Add this adapter to your `pages/api/[...nextauth].js` next-auth configuration object.
  *
- * ```js title="pages/api/auth/[...nextauth].js"
+ * ```javascript title="pages/api/auth/[...nextauth].js"
  * import NextAuth from "next-auth"
  * import SequelizeAdapter from "@auth/sequelize-adapter"
  * import { Sequelize } from "sequelize"
@@ -104,7 +104,9 @@ export interface SequelizeAdapterOptions {
  * sequelize.sync()
  *
  * export default NextAuth({
+ *   ...
  *   adapter
+ *   ...
  * })
  * ```
  *

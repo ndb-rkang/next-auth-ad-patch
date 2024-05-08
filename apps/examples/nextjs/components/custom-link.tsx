@@ -28,14 +28,11 @@ const CustomLink = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        "inline-flex align-baseline gap-1 items-center underline underline-offset-4",
-        className
-      )}
+      className={cn("items-center underline", className)}
       {...rest}
     >
-      <span>{children}</span>
-      <ExternalLink className="inline-block ml-0.5 w-4 h-4" />
+      {children}
+      <ExternalLink className=" ml-0.5 h-4 w-4 inline-block" />
     </Link>
   )
 }

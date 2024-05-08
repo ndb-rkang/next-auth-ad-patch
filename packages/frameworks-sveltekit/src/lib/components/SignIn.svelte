@@ -3,7 +3,6 @@
   import type { signIn } from "$lib/actions"
 
   export let className = ""
-  // TODO: Lookup provider type by id
   export let provider: Partial<Parameters<typeof signIn>[0]> = ""
   /** The path to the FormAction file in your route. @default signin */
   export let signInPage = "signin"
@@ -33,26 +32,22 @@
 >
   <input type="hidden" name="providerId" value={provider} />
   {#if callbackUrl}
-    <input type="hidden" name="callbackUrl" value={callbackUrl} />
+  <input type="hidden" name="callbackUrl" value={callbackUrl} />
   {/if}
   {#if redirect}
-    <input type="hidden" name="redirect" value={redirect} />
+  <input type="hidden" name="redirect" value={redirect} />
   {/if}
   {#if authorizationParamsInputs}
     {#each Object.entries(authorizationParamsInputs) as [key, value]}
-      <input type="hidden" name={`authorizationParams-${key}`} {value} />
+      <input type="hidden" name={`authorizationParams-${key}`} value={value} />
     {/each}
   {/if}
   {#if provider === "credentials"}
     <slot name="credentials" />
   {/if}
-  <!-- TODO: Filter by provider type only -->
   {#if provider === "email" || provider === "sendgrid" || provider === "resend"}
     <slot name="email">
-      <label
-        class="section-header"
-        for={`input-email-for-${provider}-provider`}
-      >
+      <label class="section-header" for={`input-email-for-${provider}-provider`}>
         Email
       </label>
       <input
@@ -65,6 +60,6 @@
     </slot>
   {/if}
   <button type="submit">
-    <slot name="submitButton">Signin{provider ? ` with ${provider}` : ""}</slot>
+    <slot name="submitButton">Signin{provider ? `with ${provider}` : ""}</slot>
   </button>
 </form>

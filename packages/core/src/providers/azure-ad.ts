@@ -9,6 +9,7 @@
  * @module providers/azure-ad
  */
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
+import * as jose from "jose"
 
 export interface AzureADProfile extends Record<string, any> {
   sub: string
@@ -18,12 +19,7 @@ export interface AzureADProfile extends Record<string, any> {
 }
 
 /**
- *
- * @deprecated
- * Azure Active Directory is now known as [Microsoft Entra ID](/getting-started/providers/microsoft-entra-id).
- * Import this provider from the `providers/microsoft-entra-id` submodule instead of `providers/azure-ad`.
- *
- * Add Azure AD login to your page.
+ * Add AzureAd login to your page.
  *
  * ### Setup
  *
@@ -34,8 +30,8 @@ export interface AzureADProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import AzureAd from "@auth/core/providers/azure-ad"
+ * import Auth from "rkang-auth-core"
+ * import AzureAd from "rkang-auth-core/providers/azure-ad"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -59,7 +55,6 @@ export interface AzureADProfile extends Record<string, any> {
  *   - Only your tenant, all azure tenants, or all azure tenants and public Microsoft accounts (Skype, Xbox, Outlook.com, etc.)
  * - When asked for a redirection URL, use `https://yourapplication.com/api/auth/callback/azure-ad` or for development `http://localhost:3000/api/auth/callback/azure-ad`.
  * - After your App Registration is created, under "Client Credential" create your Client secret.
- * - Click on "API Permissions" and click "Grant admin consent for..." to allow User.Read access to your tenant.
  * - Now copy your:
  *   - Application (client) ID
  *   - Directory (tenant) ID
@@ -104,7 +99,7 @@ export interface AzureADProfile extends Record<string, any> {
  * :::tip
  *
  * The AzureAd provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/azure-ad.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -127,7 +122,7 @@ export default function AzureAD<P extends AzureADProfile>(
      */
     profilePhotoSize?: 48 | 64 | 96 | 120 | 240 | 360 | 432 | 504 | 648
     /** @default "common" */
-    tenantId?: string
+    tenantId?: string,
   }
 ): OAuthConfig<P> {
   const { tenantId = "common", profilePhotoSize = 48, ...rest } = options
@@ -141,6 +136,31 @@ export default function AzureAD<P extends AzureADProfile>(
       params: {
         scope: "openid profile email User.Read",
       },
+      async conform(response) {
+        // Microsoft being special and non-compliant #9635
+        //
+        // MS doesn't follow the spec for some common tenant
+        // ID's ("common", "organizations", "customers"), returning
+        // a different issuer URL than used to make the request.
+        if (response.status !== 200) return response
+
+        let json = await response.json()
+        json.issuer = rest.issuer;
+        return new Response(JSON.stringify(json), response)
+      },
+      async serverConform(authServer, codeGrantResponse) {
+        if (codeGrantResponse.status !== 200) return authServer
+
+        const { id_token } = await codeGrantResponse.clone().json()
+        const jwt: jose.JWTPayload & { tid?: string } = jose.decodeJwt(id_token)
+
+        return {
+          ...authServer,
+          issuer: jwt.tid
+            ? authServer.issuer.replace(tenantId, jwt.tid)
+            : authServer.issuer,
+        }
+      }
     },
     async profile(profile, tokens) {
       // https://docs.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0#examples
@@ -157,7 +177,7 @@ export default function AzureAD<P extends AzureADProfile>(
           const pictureBuffer = await response.arrayBuffer()
           const pictureBase64 = Buffer.from(pictureBuffer).toString("base64")
           image = `data:image/jpeg;base64, ${pictureBase64}`
-        } catch {}
+        } catch { }
       }
 
       return {
@@ -167,7 +187,7 @@ export default function AzureAD<P extends AzureADProfile>(
         image: image ?? null,
       }
     },
-    style: { text: "#fff", bg: "#0072c6" },
+    style: { logo: "/azure.svg", text: "#fff", bg: "#0072c6" },
     options: rest,
   }
 }

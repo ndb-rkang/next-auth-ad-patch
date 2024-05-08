@@ -23,8 +23,8 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Medium from "@auth/core/providers/medium"
+ * import Auth from "rkang-auth-core"
+ * import Medium from "rkang-auth-core/providers/medium"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -50,7 +50,7 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * :::tip
  *
  * The Medium provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/medium.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *

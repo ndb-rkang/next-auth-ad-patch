@@ -164,8 +164,8 @@ export interface WebAuthnConfig extends CommonProviderOptions {
  *
  * #### Configuration
  * ```ts
- * import { Auth } from "@auth/core"
- * import WebAuthn from "@auth/core/providers/webauthn"
+ * import { Auth } from "rkang-auth-core"
+ * import WebAuthn from "rkang-auth-core/providers/webauthn"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -181,7 +181,7 @@ export interface WebAuthnConfig extends CommonProviderOptions {
  * :::tip
  *
  * The WebAuthn provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webauthn.ts).
- * To override the defaults for your use case, check out [customizing the built-in WebAuthn provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing the built-in WebAuthn provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *

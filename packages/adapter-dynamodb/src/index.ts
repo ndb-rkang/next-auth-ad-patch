@@ -1,6 +1,6 @@
 /**
- * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p style={{fontWeight: "300"}}>Official <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">DynamoDB</a> adapter for Auth.js / NextAuth.js.</p>
+ * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
+ *  <p style={{fontWeight: "normal"}}>Official <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">DynamoDB</a> adapter for Auth.js / NextAuth.js.</p>
  *  <a href="https://docs.aws.amazon.com/dynamodb/index.html">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/dynamodb.png" width="48"/>
  *  </a>
@@ -47,7 +47,7 @@ export interface DynamoDBAdapterOptions {
  * You need to pass `DynamoDBDocument` client from the modular [`aws-sdk`](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html) v3 to the adapter.
  * The default table name is `next-auth`, but you can customise that by passing `{ tableName: 'your-table-name' }` as the second parameter in the adapter.
  *
- * ```js title="pages/api/auth/[...nextauth].js"
+ * ```javascript title="pages/api/auth/[...nextauth].js"
  * import { DynamoDB, DynamoDBClientConfig } from "@aws-sdk/client-dynamodb"
  * import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb"
  * import NextAuth from "next-auth";
@@ -86,6 +86,7 @@ export interface DynamoDBAdapterOptions {
  *   adapter: DynamoDBAdapter(
  *     client
  *   ),
+ *   ...
  * });
  * ```
  *
@@ -149,7 +150,7 @@ export interface DynamoDBAdapterOptions {
  *
  * You can create this table with infrastructure as code using [`aws-cdk`](https://github.com/aws/aws-cdk) with the following table definition:
  *
- * ```js title="stack.ts"
+ * ```javascript title=stack.ts
  * new dynamodb.Table(this, `NextAuthTable`, {
  *   tableName: "next-auth",
  *   partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
@@ -201,7 +202,7 @@ export interface DynamoDBAdapterOptions {
  *
  * You can configure your custom table schema by passing the `options` key to the adapter constructor:
  *
- * ```js
+ * ```javascript
  * const adapter = DynamoDBAdapter(client, {
  *   tableName: "custom-table-name",
  *   partitionKey: "custom-pk",
@@ -528,7 +529,7 @@ function isDate(value: any) {
 }
 
 const format = {
-  /** Takes a plain old JavaScript object and turns it into a DynamoDB object */
+  /** Takes a plain old JavaScript object and turns it into a Dynamodb object */
   to(object: Record<string, any>) {
     const newObject: Record<string, unknown> = {}
     for (const key in object) {

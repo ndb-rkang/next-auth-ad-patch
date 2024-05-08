@@ -41,8 +41,8 @@ export interface GoogleProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Google from "@auth/core/providers/google"
+ * import Auth from "rkang-auth-core"
+ * import Google from "rkang-auth-core/providers/google"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -120,7 +120,7 @@ export interface GoogleProfile extends Record<string, any> {
  * :::tip
  *
  * The Google provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/google.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -142,9 +142,7 @@ export default function Google<P extends GoogleProfile>(
     name: "Google",
     type: "oidc",
     issuer: "https://accounts.google.com",
-    style: {
-      brandColor: "#1a73e8",
-    },
+    style: { logo: "/google.svg", bg: "#fff", text: "#000" },
     options,
   }
 }

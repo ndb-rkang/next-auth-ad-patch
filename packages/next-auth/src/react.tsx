@@ -22,8 +22,8 @@ import {
 import type {
   BuiltInProviderType,
   RedirectableProviderType,
-} from "@auth/core/providers"
-import type { LoggerInstance, Session } from "@auth/core/types"
+} from "rkang-auth-core/providers"
+import type { LoggerInstance, Session } from "rkang-auth-core/types"
 import type {
   AuthClientConfig,
   ClientSafeProvider,
@@ -69,22 +69,15 @@ export const __NEXTAUTH: AuthClientConfig = {
   _getSession: () => {},
 }
 
-let broadcastChannel: BroadcastChannel | null = null
-
 function broadcast() {
-  if (typeof BroadcastChannel === "undefined") {
-    return {
-      postMessage: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-    }
+  if (typeof BroadcastChannel !== "undefined") {
+    return new BroadcastChannel("next-auth")
   }
-
-  if (broadcastChannel === null) {
-    broadcastChannel = new BroadcastChannel("next-auth")
+  return {
+    postMessage: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
   }
-
-  return broadcastChannel
 }
 
 // TODO:

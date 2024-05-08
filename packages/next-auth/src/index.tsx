@@ -1,5 +1,5 @@
 /**
- * _If you are looking to migrate from v4, visit the [Upgrade Guide (v5)](https://authjs.dev/getting-started/migrating-to-v5)._
+ * _If you are looking to migrate from v4, visit the [Upgrade Guide (v5)](https://authjs.dev/guides/upgrade-to-v5)._
  *
  * ## Installation
  *
@@ -67,25 +67,22 @@
  * @module next-auth
  */
 
-import { Auth } from "@auth/core"
+import { Auth } from "rkang-auth-core"
 import { reqWithEnvURL, setEnvDefaults } from "./lib/env.js"
 import { initAuth } from "./lib/index.js"
 import { signIn, signOut, update } from "./lib/actions.js"
 
-import type { Session } from "@auth/core/types"
-import type { BuiltInProviderType } from "@auth/core/providers"
+import type { Session } from "rkang-auth-core/types"
+import type { BuiltInProviderType } from "rkang-auth-core/providers"
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from "next"
-import type {
-  AppRouteHandlerFn,
-  AppRouteHandlerFnContext,
-} from "./lib/types.js"
+import type { AppRouteHandlerFn } from "./lib/types.js"
 import type { NextRequest } from "next/server"
 import type { NextAuthConfig, NextAuthRequest } from "./lib/index.js"
-export { AuthError, CredentialsSignin } from "@auth/core/errors"
+export { AuthError } from "rkang-auth-core/errors"
 
 export type {
   Session,
@@ -93,7 +90,7 @@ export type {
   Profile,
   DefaultSession,
   User,
-} from "@auth/core/types"
+} from "rkang-auth-core/types"
 
 type AppRouteHandlers = Record<
   "GET" | "POST",
@@ -217,7 +214,7 @@ export interface NextAuthResult {
    * @example
    * ```ts title="pages/protected-ssr.ts"
    * import { auth } from "../auth"
-   *
+   * //...
    * export const getServerSideProps: GetServerSideProps = async (context) => {
    *   const session = await auth(context)
    *
@@ -236,12 +233,7 @@ export interface NextAuthResult {
     ((...args: []) => Promise<Session | null>) &
     ((...args: [GetServerSidePropsContext]) => Promise<Session | null>) &
     ((
-      ...args: [
-        (
-          req: NextAuthRequest,
-          ctx: AppRouteHandlerFnContext
-        ) => ReturnType<AppRouteHandlerFn>,
-      ]
+      ...args: [(req: NextAuthRequest) => ReturnType<AppRouteHandlerFn>]
     ) => AppRouteHandlerFn)
   /**
    * Sign in with a provider. If no provider is specified, the user will be redirected to the sign in page.
@@ -346,17 +338,16 @@ export interface NextAuthResult {
  *  @example
  * ```ts title="auth.ts"
  * import NextAuth from "next-auth"
- * import GitHub from "@auth/core/providers/github"
+ * import GitHub from "rkang-auth-core/providers/github"
  *
  * export const { handlers, auth } = NextAuth({ providers: [GitHub] })
  * ```
  *
  * Lazy initialization:
- *
  * @example
  * ```ts title="auth.ts"
  * import NextAuth from "next-auth"
- * import GitHub from "@auth/core/providers/github"
+ * import GitHub from "rkang-auth-core/providers/github"
  *
  * export const { handlers, auth } = NextAuth((req) => {
  *   console.log(req) // do something with the request

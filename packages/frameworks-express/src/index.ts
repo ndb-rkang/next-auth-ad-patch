@@ -22,8 +22,7 @@
  * const app = express()
  *
  * // If app is served through a proxy, trust the proxy to allow HTTPS protocol to be detected
- * // https://expressjs.com/en/guide/behind-proxies.html
- * app.set('trust proxy', true)
+ * app.use('trust proxy')
  * app.use("/auth/*", ExpressAuth({ providers: [ GitHub ] }))
  * ```
  *
@@ -124,17 +123,11 @@
  * @module @auth/express
  */
 
-import {
-  Auth,
-  type AuthConfig,
-  setEnvDefaults,
-  createActionURL,
-} from "@auth/core"
-import type { Session } from "@auth/core/types"
+import { Auth, setEnvDefaults, createActionURL } from "@auth/core"
+import type { AuthConfig, Session } from "@auth/core/types"
 import * as e from "express"
 import { toWebRequest, toExpressResponse } from "./lib/index.js"
 
-export { AuthError, CredentialsSignin } from "@auth/core/errors"
 export type {
   Account,
   DefaultSession,
@@ -149,14 +142,10 @@ export function ExpressAuth(config: Omit<AuthConfig, "raw">) {
       if (err) return next(err)
       e.urlencoded({ extended: true })(req, res, async (err) => {
         if (err) return next(err)
-        try {
-          config.basePath = getBasePath(req)
-          setEnvDefaults(process.env, config)
-          await toExpressResponse(await Auth(toWebRequest(req), config), res)
-          if (!res.headersSent) next()
-        } catch (error) {
-          next(error)
-        }
+        config.basePath = getBasePath(req)
+        setEnvDefaults(process.env, config)
+        await toExpressResponse(await Auth(toWebRequest(req), config), res)
+        next()
       })
     })
   }

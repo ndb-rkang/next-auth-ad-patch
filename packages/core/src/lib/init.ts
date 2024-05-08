@@ -8,8 +8,13 @@ import parseProviders from "./utils/providers.js"
 import { logger, type LoggerInstance } from "./utils/logger.js"
 import { merge } from "./utils/merge.js"
 
-import type { InternalOptions, RequestInternal } from "../types.js"
-import type { AuthConfig } from "../index.js"
+import type {
+  AuthConfig,
+  CallbacksOptions,
+  EventCallbacks,
+  InternalOptions,
+  RequestInternal,
+} from "../types.js"
 
 interface InitParams {
   url: URL
@@ -26,7 +31,7 @@ interface InitParams {
   cookies: RequestInternal["cookies"]
 }
 
-export const defaultCallbacks: InternalOptions["callbacks"] = {
+export const defaultCallbacks: CallbacksOptions = {
   signIn() {
     return true
   },
@@ -196,9 +201,9 @@ type Method = (...args: any[]) => Promise<any>
 
 /** Wraps an object of methods and adds error handling. */
 function eventsErrorHandler(
-  methods: Partial<InternalOptions["events"]>,
+  methods: Partial<EventCallbacks>,
   logger: LoggerInstance
-): Partial<InternalOptions["events"]> {
+): Partial<EventCallbacks> {
   return Object.keys(methods).reduce<any>((acc, name) => {
     acc[name] = async (...args: any[]) => {
       try {

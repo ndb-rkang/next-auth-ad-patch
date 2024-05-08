@@ -9,8 +9,7 @@ import type {
   ProfileCallback,
   Provider,
 } from "../../providers/index.js"
-import type { InternalProvider, Profile } from "../../types.js"
-import type { AuthConfig } from "../../index.js"
+import type { AuthConfig, InternalProvider, Profile } from "../../types.js"
 
 /**
  * Adds `signinUrl` and `callbackUrl` to each provider
@@ -33,7 +32,6 @@ export default function parseProviders(params: {
     const { options: userOptions, ...defaults } = provider
 
     const id = (userOptions?.id ?? defaults.id) as string
-    // TODO: Support if properties have different types, e.g. authorization: string or object
     const merged = merge(defaults, userOptions, {
       signinUrl: `${url}/signin/${id}`,
       callbackUrl: `${url}/callback/${id}`,
@@ -151,5 +149,5 @@ function normalizeEndpoint(
       url.searchParams.set(key, String(value))
     }
   }
-  return { url, request: e?.request, conform: e?.conform }
+  return { url, request: e?.request, conform: e?.conform, serverConform: e?.serverConform }
 }

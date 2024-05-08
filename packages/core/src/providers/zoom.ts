@@ -55,8 +55,8 @@ export interface ZoomProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Zoom from "@auth/core/providers/zoom"
+ * import Auth from "rkang-auth-core"
+ * import Zoom from "rkang-auth-core/providers/zoom"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -76,7 +76,7 @@ export interface ZoomProfile extends Record<string, any> {
  * :::tip
  *
  * The Zoom provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/zoom.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -107,10 +107,6 @@ export default function Zoom(
         email: profile.email,
         image: profile.pic_url,
       }
-    },
-    style: {
-      bg: "#0b5cff",
-      text: "#fff",
     },
     options: config,
   }

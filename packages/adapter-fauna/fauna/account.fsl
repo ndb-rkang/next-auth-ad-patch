@@ -6,13 +6,3 @@ collection Account {
         terms [.provider, .providerAccountId]
     }
 }
-
-collection CustomAccount {
-    index byUserId {
-        terms [.userId]
-    }
-    index byProviderAndProviderAccountId {
-        terms [.provider, .providerAccountId]
-    }
-}
-

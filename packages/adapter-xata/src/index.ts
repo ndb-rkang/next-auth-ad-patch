@@ -8,27 +8,19 @@
  *
  * ## Installation
  *
- * 1. Install Auth.js and the Xata adapter
- *
  * ```bash npm2yarn
+ * # Install Auth.js and the Xata adapter
  * npm install @auth/xata-adapter
- * ```
  *
- * 2. Install the Xata CLI globally if you don't already have it
+ * # Install the Xata CLI globally if you don't already have it
+ * npm install --location=global @xata.io/cli
  *
- * ```bash npm2yarn
- * npm install -g @xata.io/cli
- * ```
- *
- * 3. Login
- *
- * ```bash
+ * # Login
  * xata auth login
  * ```
  *
  * @module @auth/xata-adapter
  */
-
 import type { Adapter } from "@auth/core/adapters"
 
 import type { XataClient } from "./xata"
@@ -207,7 +199,7 @@ import type { XataClient } from "./xata"
  *
  * Once you're done, you can continue using Auth.js in your project as expected, like creating a `./pages/api/auth/[...nextauth]` route.
  *
- * ```ts title="pages/api/auth/[...nextauth].ts"
+ * ```typescript title="pages/api/auth/[...nextauth].ts"
  * import NextAuth from "next-auth"
  * import GoogleProvider from "next-auth/providers/google"
  *
@@ -228,10 +220,10 @@ import type { XataClient } from "./xata"
  * ```diff
  * import NextAuth from "next-auth"
  * import GoogleProvider from "next-auth/providers/google"
- * + import { XataAdapter } from "@auth/xata-adapter"
- * + import { XataClient } from "../../../xata" // or wherever you've chosen to create the client
+ * +import { XataAdapter } from "@auth/xata-adapter"
+ * +import { XataClient } from "../../../xata" // or wherever you've chosen to create the client
  *
- * + const client = new XataClient()
+ * +const client = new XataClient()
  *
  * export default NextAuth({
  * + adapter: XataAdapter(client),

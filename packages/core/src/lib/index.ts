@@ -5,8 +5,7 @@ import renderPage from "./pages/index.js"
 import * as actions from "./actions/index.js"
 import { validateCSRF } from "./actions/callback/oauth/csrf-token.js"
 
-import type { RequestInternal, ResponseInternal } from "../types.js"
-import type { AuthConfig } from "../index.js"
+import type { AuthConfig, RequestInternal, ResponseInternal } from "../types.js"
 
 /** @internal */
 export async function AuthInternal(
@@ -59,7 +58,7 @@ export async function AuthInternal(
           request,
           options,
           sessionStore,
-          cookies
+          cookies,
         )
       default:
     }
@@ -98,7 +97,7 @@ export async function AuthInternal(
  * This option is intended for framework authors.
  * :::
  *
- * Auth.js comes with built-in CSRF protection, but
+ * Auth.js comes with built-in {@link https://authjs.dev/concepts/security#csrf CSRF} protection, but
  * if you are implementing a framework that is already protected against CSRF attacks, you can skip this check by
  * passing this value to {@link AuthConfig.skipCSRFCheck}.
  */

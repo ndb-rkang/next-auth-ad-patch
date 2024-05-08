@@ -29,8 +29,8 @@ export interface PinterestProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Pinterest from "@auth/core/providers/pinterest"
+ * import Auth from "rkang-auth-core"
+ * import Pinterest from "rkang-auth-core/providers/pinterest"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -58,7 +58,7 @@ export interface PinterestProfile extends Record<string, any> {
  * :::tip
  *
  * The Pinterest provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/pinterest.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -92,9 +92,6 @@ export default function PinterestProvider<P extends PinterestProfile>(
         image: profile_image,
         email: null,
       }
-    },
-    style: {
-      brandColor: "#bd081c",
     },
     options,
   }

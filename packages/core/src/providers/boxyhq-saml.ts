@@ -35,8 +35,8 @@ export interface BoxyHQSAMLProfile extends Record<string, any> {
  *
  * For OAuth 2.0 Flow:
  *```js
- * import Auth from "@auth/core"
- * import BoxyHQ from "@auth/core/providers/boxyhq-saml"
+ * import Auth from "rkang-auth-core"
+ * import BoxyHQ from "rkang-auth-core/providers/boxyhq-saml"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -51,8 +51,8 @@ export interface BoxyHQSAMLProfile extends Record<string, any> {
  * For OIDC Flow:
  *
  *```js
- * import Auth from "@auth/core"
- * import BoxyHQ from "@auth/core/providers/boxyhq-saml"
+ * import Auth from "rkang-auth-core"
+ * import BoxyHQ from "rkang-auth-core/providers/boxyhq-saml"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -101,7 +101,7 @@ export interface BoxyHQSAMLProfile extends Record<string, any> {
  * :::tip
  *
  * The BoxyHQ provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/boxyhq-saml.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -135,9 +135,6 @@ export default function SAMLJackson<P extends BoxyHQSAMLProfile>(
         name: [profile.firstName, profile.lastName].filter(Boolean).join(" "),
         image: null,
       }
-    },
-    style: {
-      brandColor: "#25c2a0",
     },
     options,
   }

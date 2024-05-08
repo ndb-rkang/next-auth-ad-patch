@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import type { BuiltInProviderType, ProviderType } from "@auth/core/providers"
-import type { LoggerInstance, Session } from "@auth/core/types"
-import { AuthError } from "@auth/core/errors"
+import type { BuiltInProviderType, ProviderType } from "rkang-auth-core/providers"
+import type { LoggerInstance, Session } from "rkang-auth-core/types"
+import { AuthError } from "rkang-auth-core/errors"
 
 /** @todo */
 class ClientFetchError extends AuthError {}

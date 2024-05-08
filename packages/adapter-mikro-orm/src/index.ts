@@ -33,7 +33,7 @@ export { defaultEntities }
  *
  * Configure Auth.js to use the MikroORM Adapter:
  *
- * ```ts title="pages/api/auth/[...nextauth].ts"
+ * ```typescript title="pages/api/auth/[...nextauth].ts"
  * import NextAuth from "next-auth"
  * import { MikroOrmAdapter } from "@auth/mikro-orm-adapter"
  *
@@ -56,7 +56,7 @@ export { defaultEntities }
  *
  * > This schema is adapted for use in MikroORM and based upon our main [schema](https://authjs.dev/reference/core/adapters#models)
  *
- * ```ts title="pages/api/auth/[...nextauth].ts"
+ * ```typescript title="pages/api/auth/[...nextauth].ts"
  * import config from "config/mikro-orm.ts"
  * import {
  *   Cascade,
@@ -122,11 +122,12 @@ export { defaultEntities }
  *
  * To achieve that include them in your "entities" array:
  *
- * ```ts title="config/mikro-orm.ts"
+ * ```typescript title="config/mikro-orm.ts"
  * import { Options } from "@mikro-orm/core";
  * import { defaultEntities } from "@auth/mikro-orm-adapter"
  *
  * const config: Options = {
+ *   ...
  *   entities: [VeryImportantEntity, ...Object.values(defaultEntities)],
  * };
  *

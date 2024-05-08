@@ -4,10 +4,3 @@ collection User {
         terms [.email]
     }
 }
-
-collection CustomUser {
-    unique [.email]
-    index byEmail {
-        terms [.email]
-    }
-}

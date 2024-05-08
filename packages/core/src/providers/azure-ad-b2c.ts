@@ -62,8 +62,8 @@ export interface AzureADB2CProfile {
  * @example
  *
  * ```ts
- * import { Auth } from "@auth/core"
- * import AzureADB2C from "@auth/core/providers/azure-ad-b2c"
+ * import { Auth } from "rkang-auth-core"
+ * import AzureADB2C from "rkang-auth-core/providers/azure-ad-b2c"
  *
  * const request = new Request("https://example.com")
  * const response = await AuthHandler(request, {
@@ -88,7 +88,7 @@ export interface AzureADB2CProfile {
  * :::tip
  *
  * The Azure AD B2C provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/azure-ad-b2c.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -122,7 +122,7 @@ export default function AzureADB2C(
         image: null,
       }
     },
-    style: { text: "#fff", bg: "#0072c6" },
+    style: { logo: "/azure.svg", text: "#fff", bg: "#0072c6" },
     options,
   }
 }

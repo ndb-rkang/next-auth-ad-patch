@@ -22,8 +22,8 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Instagram from "@auth/core/providers/instagram"
+ * import Auth from "rkang-auth-core"
+ * import Instagram from "rkang-auth-core/providers/instagram"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -52,7 +52,7 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * :::tip
  *
  * The Instagram provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/instagram.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -90,6 +90,7 @@ export default function Instagram(
       }
     },
     style: {
+      logo: "/instagram.svg",
       bg: "#fff",
       text: "#000",
     },

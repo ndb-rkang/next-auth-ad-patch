@@ -12,7 +12,7 @@ export default function Page() {
     })()
   }, [])
   return (
-    <div className="flex flex-col gap-6">
+    <div className="space-y-2">
       <h1 className="text-3xl font-bold">Route Handler Usage</h1>
       <p>
         This page fetches data from an API{" "}
@@ -25,14 +25,10 @@ export default function Page() {
         </CustomLink>{" "}
         method.
       </p>
-      <div className="flex flex-col rounded-md bg-neutral-100">
-        <div className="p-4 font-bold rounded-t-md bg-neutral-200">
-          Data from API Route
-        </div>
-        <pre className="py-6 px-4 whitespace-pre-wrap break-all">
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </div>
+      <h2 className="text-xl font-bold">Data from API Route:</h2>
+      <pre>
+        <code>{JSON.stringify(data, null, 2)}</code>
+      </pre>
     </div>
   )
 }

@@ -36,8 +36,8 @@ export interface WebexProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Webex from "@auth/core/providers/webex"
+ * import Auth from "rkang-auth-core"
+ * import Webex from "rkang-auth-core/providers/webex"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -58,7 +58,7 @@ export interface WebexProfile extends Record<string, any> {
  * :::tip
  *
  * The Webex provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webex.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -73,7 +73,7 @@ export interface WebexProfile extends Record<string, any> {
  * :::
  */
 export default function Webex<P extends WebexProfile>(
-  config: OAuthUserConfig<P> & { apiBaseUrl?: string }
+  config: OAuthUserConfig<P> & { apiBaseUrl: string }
 ): OAuthConfig<P> {
   const apiBaseUrl = config?.apiBaseUrl ?? "https://webexapis.com/v1"
 

@@ -17,9 +17,7 @@
 import { type Session, isInt, integer } from "neo4j-driver"
 import type { Adapter } from "@auth/core/adapters"
 
-/**
- * This is the interface of the Neo4j adapter options. The Neo4j adapter takes a {@link https://neo4j.com/docs/bolt/current/driver-api/#driver-session Neo4j session} as its only argument.
- **/
+/** This is the interface of the Neo4j adapter options. The Neo4j adapter takes a {@link https://neo4j.com/docs/bolt/current/driver-api/#driver-session Neo4j session} as its only argument. */
 export interface Neo4jOptions extends Session {}
 
 /**
@@ -27,7 +25,7 @@ export interface Neo4jOptions extends Session {}
  *
  * Add this adapter to your `pages/api/[...nextauth].js` Auth.js configuration object.
  *
- * ```js title="pages/api/auth/[...nextauth].js"
+ * ```javascript title="pages/api/auth/[...nextauth].js"
  * import neo4j from "neo4j-driver"
  * import { Neo4jAdapter } from "@auth/neo4j-adapter"
  *
@@ -39,14 +37,14 @@ export interface Neo4jOptions extends Session {}
  * const neo4jSession = driver.session()
  *
  * // For more information on each option (and a full list of options) go to
- * // https://authjs.dev/reference/core/types#authconfig
+ * // https://authjs.dev/reference/configuration/auth-options
  * export default NextAuth({
- *   // https://authjs.dev/getting-started/authentication/oauth
+ *   // https://authjs.dev/reference/core/providers
  *   providers: [],
  *   adapter: Neo4jAdapter(neo4jSession),
+ *   ...
  * })
  * ```
- *
  * ## Advanced usage
  *
  * ### Schema
@@ -64,12 +62,12 @@ export interface Neo4jOptions extends Session {}
  *
  * The following relationships and relationship labels are used.
  *
- * - `(:User)-[:HAS_ACCOUNT]->(:Account)`
- * - `(:User)-[:HAS_SESSION]->(:Session)`
+ * - (:User)-[:HAS_ACCOUNT]->(:Account)
+ * - (:User)-[:HAS_SESSION]->(:Session)
  *
  * #### Properties
  *
- * This schema is adapted for use in Neo4j and is based upon our main [models](https://authjs.dev/reference/core/adapters#models). Please check there for the node properties. Relationships have no properties.
+ * This schema is adapted for use in Neo4J and is based upon our main [models](https://authjs.dev/reference/core/adapters#models). Please check there for the node properties. Relationships have no properties.
  *
  * #### Indexes
  *
@@ -77,7 +75,8 @@ export interface Neo4jOptions extends Session {}
  *
  * 1. For **both** Community Edition & Enterprise Edition create constraints and indexes
  *
- * ```sql
+ * ```cypher
+ *
  * CREATE CONSTRAINT user_id_constraint IF NOT EXISTS
  * ON (u:User) ASSERT u.id IS UNIQUE;
  *
@@ -94,11 +93,9 @@ export interface Neo4jOptions extends Session {}
  * FOR (s:Session) ON (s.sessionToken);
  * ```
  *
- * 2. Indexes
+ * 2.a. For Community Edition **only** create single-property indexes
  *
- * 2.1. For Community Edition **only** create single-property indexes
- *
- * ```sql
+ * ```cypher
  * CREATE INDEX account_provider_index IF NOT EXISTS
  * FOR (a:Account) ON (a.provider);
  *
@@ -112,9 +109,9 @@ export interface Neo4jOptions extends Session {}
  * FOR (v:VerificationToken) ON (v.token);
  * ```
  *
- * 2.2. For Enterprise Edition **only** create composite node key constraints and indexes
+ * 2.b. For Enterprise Edition **only** create composite node key constraints and indexes
  *
- * ```sql
+ * ```cypher
  * CREATE CONSTRAINT account_provider_composite_constraint IF NOT EXISTS
  * ON (a:Account) ASSERT (a.provider, a.providerAccountId) IS NODE KEY;
  *
@@ -127,7 +124,6 @@ export interface Neo4jOptions extends Session {}
  * CREATE INDEX verification_token_composite_index IF NOT EXISTS
  * FOR (v:VerificationToken) ON (v.identifier, v.token);
  * ```
- *
  */
 export function Neo4jAdapter(session: Session): Adapter {
   const { read, write } = client(session)

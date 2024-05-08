@@ -175,8 +175,8 @@ export interface WikimediaProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Wikimedia from "@auth/core/providers/wikimedia"
+ * import Auth from "rkang-auth-core"
+ * import Wikimedia from "rkang-auth-core/providers/wikimedia"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -214,7 +214,7 @@ export interface WikimediaProfile extends Record<string, any> {
  * :::tip
  *
  * The Wikimedia provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/wikimedia.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -247,7 +247,7 @@ export default function Wikimedia<P extends WikimediaProfile>(
         image: null,
       }
     },
-    style: { bg: "#000", text: "#fff" },
+    style: { logo: "/wikimedia.svg", bg: "#000", text: "#fff" },
     options,
   }
 }

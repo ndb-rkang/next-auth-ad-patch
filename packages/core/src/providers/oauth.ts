@@ -1,7 +1,12 @@
-import type { Client } from "oauth4webapi"
+import type { Client, AuthorizationServer } from "oauth4webapi"
 import type { CommonProviderOptions } from "../providers/index.js"
-import type { Awaitable, Profile, TokenSet, User } from "../types.js"
-import type { AuthConfig } from "../index.js"
+import type {
+  AuthConfig,
+  Awaitable,
+  Profile,
+  TokenSet,
+  User,
+} from "../types.js"
 
 // TODO: fix types
 type AuthorizationParameters = any
@@ -45,6 +50,8 @@ interface AdvancedEndpointHandler<P extends UrlParams, C, R> {
   request?: EndpointRequest<C, R, P>
   /** @internal */
   conform?: (response: Response) => Awaitable<Response | undefined>
+  /** @internal */
+  serverConform?: (server: AuthorizationServer, codeGrantResponse: Response) => Awaitable<AuthorizationServer>
 }
 
 /**
@@ -57,8 +64,9 @@ export type EndpointHandler<
   R = any,
 > = AdvancedEndpointHandler<P, C, R>
 
-export type AuthorizationEndpointHandler =
-  EndpointHandler<AuthorizationParameters>
+export interface AuthorizationEndpointHandler extends
+  EndpointHandler<AuthorizationParameters> {
+}
 
 export type TokenEndpointHandler = EndpointHandler<
   UrlParams,
@@ -93,22 +101,18 @@ export type ProfileCallback<Profile> = (
 export type AccountCallback = (tokens: TokenSet) => TokenSet | undefined | void
 
 export interface OAuthProviderButtonStyles {
-  logo?: string
-  /**
-   * @deprecated
-   */
-  text?: string
-  /**
-   * @deprecated Please use 'brandColor' instead
-   */
-  bg?: string
-  brandColor?: string
+  logo: string
+  logoDark?: string
+  bg: string
+  bgDark?: string
+  text: string
+  textDark?: string
 }
 
 /** TODO: Document */
 export interface OAuth2Config<Profile>
   extends CommonProviderOptions,
-    PartialIssuer {
+  PartialIssuer {
   /**
    * Identifies the provider when you want to sign in to
    * a specific provider.
@@ -163,7 +167,7 @@ export interface OAuth2Config<Profile>
    *
    * @example
    * ```ts
-   * import GitHub from "@auth/core/providers/github"
+   * import GitHub from "rkang-auth-core/providers/github"
    * // ...
    * GitHub({
    *   account(account) {
@@ -212,7 +216,7 @@ export interface OAuth2Config<Profile>
    *
    * Automatic account linking on sign in is not secure
    * between arbitrary providers and is disabled by default.
-   * Learn more in our [Security FAQ](https://authjs.dev/concepts#security).
+   * Learn more in our [Security FAQ](https://authjs.dev/reference/faq#security).
    *
    * However, it may be desirable to allow automatic account linking if you trust that the provider involved has securely verified the email address
    * associated with the account. Set `allowDangerousEmailAccountLinking: true`
@@ -254,7 +258,13 @@ export type OAuthConfigInternal<Profile> = Omit<
   OAuthConfig<Profile>,
   OAuthEndpointType | "redirectProxyUrl"
 > & {
-  authorization?: { url: URL }
+  authorization?: {
+    url: URL
+    /** @internal */
+    serverConform?: AuthorizationEndpointHandler["serverConform"],
+    /** @internal */
+    conform?: AuthorizationEndpointHandler["conform"],
+  }
   token?: {
     url: URL
     request?: TokenEndpointHandler["request"]
@@ -275,9 +285,9 @@ export type OAuthConfigInternal<Profile> = Omit<
    */
   redirectProxyUrl?: OAuth2Config<Profile>["redirectProxyUrl"]
 } & Pick<
-    Required<OAuthConfig<Profile>>,
-    "clientId" | "checks" | "profile" | "account"
-  >
+  Required<OAuthConfig<Profile>>,
+  "clientId" | "checks" | "profile" | "account"
+>
 
 export type OIDCConfigInternal<Profile> = OAuthConfigInternal<Profile> & {
   checks: OIDCConfig<Profile>["checks"]

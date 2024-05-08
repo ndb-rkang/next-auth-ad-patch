@@ -71,8 +71,8 @@ export interface OsuProfile extends OsuUserCompact, Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Osu from "@auth/core/providers/osu"
+ * import Auth from "rkang-auth-core"
+ * import Osu from "rkang-auth-core/providers/osu"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -99,7 +99,7 @@ export interface OsuProfile extends OsuUserCompact, Record<string, any> {
  * :::tip
  *
  * The osu! provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/osu.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *

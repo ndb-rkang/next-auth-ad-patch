@@ -5,12 +5,7 @@ import { eq, and } from "drizzle-orm"
 import { fixtures } from "../fixtures"
 
 runBasicTests({
-  adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
-  }),
+  adapter: DrizzleAdapter(db),
   fixtures,
   db: {
     connect: async () => {

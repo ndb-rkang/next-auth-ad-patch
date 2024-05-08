@@ -30,8 +30,8 @@ export interface DribbbleProfile extends Record<string, any> {
  *
  * #### Configuration
  *```js
- * import Auth from "@auth/core"
- * import Dribbble from "@auth/core/providers/dribbble"
+ * import Auth from "rkang-auth-core"
+ * import Dribbble from "rkang-auth-core/providers/dribbble"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -53,7 +53,7 @@ export interface DribbbleProfile extends Record<string, any> {
  * :::tip
  *
  * The Dribbble provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/dribbble.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
  *
  * :::
  *
@@ -108,6 +108,7 @@ export default function Dribbble<P extends DribbbleProfile>(
     },
 
     style: {
+      logo: "/dribbble.svg",
       text: "#fff",
       bg: "#000",
     },
